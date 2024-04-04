@@ -21,14 +21,11 @@ export default function Home() {
   const getStudent = async () => {
     const token = localStorage.getItem("jwt");
     try {
-      const getstudents = await axios.get("/api/getUser", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      setStudents(getstudents.data);
+      const getstudents = await axios.get("/api/getUser");
 
-      console.log(allstudents);
+      setStudents(getstudents.data);
+      console.log(getstudents.data);
+
     } catch (error) {
       console.log(error);
     }
@@ -39,11 +36,20 @@ export default function Home() {
   const handleDeleteUser = async (userId) => {
     try {
       // Send request to backend to delete user
-      await axios.delete(`/api/deleteUser/${userId}`);
+      const response = await axios.delete(`/api/deleteUser/${userId}`);
+
+      console.log(response)
+
+    if(response.status !==200){
+      message.error("Failed to delete user. Please try again.")
+      
+      
+    }else{
       message.success("User deleted successfully");
-
       getStudent();
+    }
 
+    
       // Optionally, update UI to reflect the user deletion
     } catch (error) {
       console.error("Error deleting user:", error);
