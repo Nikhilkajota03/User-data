@@ -25,7 +25,7 @@ export const POST = async (request) => {
     // Send mail with defined transport object
     const info = await transporter.sendMail({
       from: SMTP_EMAIL,
-      to: SMTP_EMAIL_to,
+      to: "nikhilkajota9413750125@gmail.com",
       subject: "Test Email",
       text: "This is a test email sent from Nodemailer in Next.js!",
     });
